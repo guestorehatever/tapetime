@@ -290,6 +290,30 @@
     .step:last-child{border-bottom:none;}
   }
 
+  /* TIER LEGEND */
+  .tier-legend{
+    display:flex; gap:14px; flex-wrap:wrap; margin:0 0 22px;
+  }
+  .tier-card{
+    flex:1; min-width:220px;
+    border:1px solid var(--line); border-radius:10px;
+    padding:16px 18px;
+    background:var(--vcr-black-2);
+  }
+  .tier-card h4{
+    font-family:'VT323', monospace; font-size:20px; margin:0 0 6px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .tier-card.basic h4{color:var(--cream-dim);}
+  .tier-card.premium h4{color:var(--warn-yellow);}
+  .tier-card .wm-badge{
+    font-family:'Space Grotesk', sans-serif; font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; padding:2px 7px; border-radius:3px;
+    border:1px solid var(--cream-dim); color:var(--cream-dim);
+  }
+  .tier-card.premium .wm-badge{ border-color:var(--cyan); color:var(--cyan); }
+  .tier-card p{ margin:0; color:var(--cream-dim); font-size:13px; line-height:1.5; }
+
   /* PRICING - cassette spine labels */
   .price-table{
     border:1px solid var(--line); border-radius:10px; overflow:hidden;
@@ -299,6 +323,7 @@
     padding:16px 26px;
     border-bottom:1px solid var(--line);
     background:var(--vcr-black-2);
+    flex-wrap:wrap; row-gap:10px;
   }
   .price-row:last-child{border-bottom:none;}
   .price-row:nth-child(even){background:#111119;}
@@ -315,11 +340,31 @@
     font-family:'VT323', monospace; font-size:26px; color:var(--cyan);
     flex-shrink:0;
   }
+  .price-row .amt-pair{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .price-row .amt-pair .opt{
+    display:flex; flex-direction:column; align-items:flex-end; line-height:1.15;
+  }
+  .price-row .amt-pair .opt .opt-label{
+    font-family:'Space Grotesk', sans-serif; font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--cream-dim);
+  }
+  .price-row .amt-pair .opt.basic .opt-label{ color:var(--cream-dim); }
+  .price-row .amt-pair .opt.premium .opt-label{ color:var(--warn-yellow); }
+  .price-row .amt-pair .opt.basic .amt{ color:var(--cream-dim); font-size:22px; }
+  .price-row .amt-pair .opt.premium .amt{ color:var(--cyan); font-size:26px; }
+  .price-row .amt-pair .div{
+    width:1px; align-self:stretch; background:var(--line);
+  }
   @media (max-width:600px){
     .price-row{ padding:14px 16px; gap:10px; }
     .price-row .len{ font-size:14px; gap:10px; }
     .price-row .len .tag{ min-width:40px; font-size:13px; padding:2px 6px; }
     .price-row .amt{ font-size:22px; }
+    .price-row .amt-pair{ gap:12px; }
+    .price-row .amt-pair .opt.basic .amt{ font-size:19px; }
+    .price-row .amt-pair .opt.premium .amt{ font-size:22px; }
   }
 
   .subgrid{
@@ -600,15 +645,68 @@
   <div class="wrap">
     <div class="eyebrow">Track 02</div>
     <h2 class="section-title">Transfer pricing</h2>
-    <p class="section-sub">Priced by runtime — you only pay for what's actually on the tape.</p>
+    <p class="section-sub">Priced by runtime — you only pay for what's actually on the tape. Pick Basic with a small watermark, or Premium for a clean, branding-free copy.</p>
+
+    <div class="tier-legend">
+      <div class="tier-card basic">
+        <h4>Basic <span class="wm-badge">Watermarked</span></h4>
+        <p>Small TapeTime Digital watermark on the video. Great for previews or casual use.</p>
+      </div>
+      <div class="tier-card premium">
+        <h4>Premium <span class="wm-badge">No Watermark</span></h4>
+        <p>Clean digital copy, no branding. Best for family archives and important memories.</p>
+      </div>
+    </div>
 
     <div class="price-table">
-      <div class="price-row"><div class="len"><span class="tag">SP</span>Up to 30 minutes</div><div class="amt">$8</div></div>
-      <div class="price-row"><div class="len"><span class="tag">SP</span>31–60 minutes</div><div class="amt">$12</div></div>
-      <div class="price-row"><div class="len"><span class="tag">SP</span>61–90 minutes</div><div class="amt">$16</div></div>
-      <div class="price-row"><div class="len"><span class="tag">SP</span>91–120 minutes</div><div class="amt">$20</div></div>
-      <div class="price-row"><div class="len"><span class="tag">SP</span>121–180 minutes</div><div class="amt">$26</div></div>
-      <div class="price-row"><div class="len"><span class="tag">SP</span>181–240 minutes</div><div class="amt">$32</div></div>
+      <div class="price-row">
+        <div class="len"><span class="tag">SP</span>Up to 30 minutes</div>
+        <div class="amt-pair">
+          <div class="opt basic"><span class="opt-label">Basic</span><span class="amt">$7</span></div>
+          <div class="div"></div>
+          <div class="opt premium"><span class="opt-label">Premium</span><span class="amt">$8</span></div>
+        </div>
+      </div>
+      <div class="price-row">
+        <div class="len"><span class="tag">SP</span>31–60 minutes</div>
+        <div class="amt-pair">
+          <div class="opt basic"><span class="opt-label">Basic</span><span class="amt">$10</span></div>
+          <div class="div"></div>
+          <div class="opt premium"><span class="opt-label">Premium</span><span class="amt">$12</span></div>
+        </div>
+      </div>
+      <div class="price-row">
+        <div class="len"><span class="tag">SP</span>61–90 minutes</div>
+        <div class="amt-pair">
+          <div class="opt basic"><span class="opt-label">Basic</span><span class="amt">$14</span></div>
+          <div class="div"></div>
+          <div class="opt premium"><span class="opt-label">Premium</span><span class="amt">$16</span></div>
+        </div>
+      </div>
+      <div class="price-row">
+        <div class="len"><span class="tag">SP</span>91–120 minutes</div>
+        <div class="amt-pair">
+          <div class="opt basic"><span class="opt-label">Basic</span><span class="amt">$18</span></div>
+          <div class="div"></div>
+          <div class="opt premium"><span class="opt-label">Premium</span><span class="amt">$20</span></div>
+        </div>
+      </div>
+      <div class="price-row">
+        <div class="len"><span class="tag">SP</span>121–180 minutes</div>
+        <div class="amt-pair">
+          <div class="opt basic"><span class="opt-label">Basic</span><span class="amt">$23</span></div>
+          <div class="div"></div>
+          <div class="opt premium"><span class="opt-label">Premium</span><span class="amt">$26</span></div>
+        </div>
+      </div>
+      <div class="price-row">
+        <div class="len"><span class="tag">SP</span>181–240 minutes</div>
+        <div class="amt-pair">
+          <div class="opt basic"><span class="opt-label">Basic</span><span class="amt">$29</span></div>
+          <div class="div"></div>
+          <div class="opt premium"><span class="opt-label">Premium</span><span class="amt">$32</span></div>
+        </div>
+      </div>
     </div>
 
     <div class="subgrid">
@@ -624,7 +722,7 @@
       <div class="card-block">
         <h3>Extras</h3>
         <ul class="mini-list">
-          <li>Additional copy of the same video <span class="p">+$5</span></li>
+          <li>Additional copy of same tape/video <span class="p">+$8</span></li>
           <li>Basic video cleanup (brightness/color) <span class="p">+$5</span></li>
           <li>DVD copy option <span class="p">+$8</span></li>
         </ul>
@@ -663,7 +761,7 @@
   <div class="wrap">
     <div class="eyebrow">Side B</div>
     <h2 class="section-title">VHS recording service</h2>
-    <p class="section-sub">Going the other way — send us a digital video and we'll record it onto a real VHS tape.</p>
+    <p class="section-sub">Going the other way — send us a digital video and we'll record it onto a real VHS tape. Choose Basic with a short branding mark, or Premium for a pure recording.</p>
 
     <div class="disclaimer-inline">
       <div class="disclaimer-inner">
@@ -671,12 +769,58 @@
       </div>
     </div>
 
+    <div class="tier-legend">
+      <div class="tier-card basic">
+        <h4>Basic <span class="wm-badge">Watermarked</span></h4>
+        <p>Short TapeTime Digital intro/outro or branding mark added to the recording. Lower-cost option.</p>
+      </div>
+      <div class="tier-card premium">
+        <h4>Premium <span class="wm-badge">No Watermark</span></h4>
+        <p>Pure VHS recording, no TapeTime branding.</p>
+      </div>
+    </div>
+
     <div class="price-table">
-      <div class="price-row"><div class="len"><span class="tag">REC</span>Up to 30 minutes</div><div class="amt">$10</div></div>
-      <div class="price-row"><div class="len"><span class="tag">REC</span>31–60 minutes</div><div class="amt">$15</div></div>
-      <div class="price-row"><div class="len"><span class="tag">REC</span>61–90 minutes</div><div class="amt">$20</div></div>
-      <div class="price-row"><div class="len"><span class="tag">REC</span>91–120 minutes</div><div class="amt">$25</div></div>
-      <div class="price-row"><div class="len"><span class="tag">REC</span>121–180 minutes</div><div class="amt">$30</div></div>
+      <div class="price-row">
+        <div class="len"><span class="tag">REC</span>Up to 30 minutes</div>
+        <div class="amt-pair">
+          <div class="opt basic"><span class="opt-label">Basic</span><span class="amt">$9</span></div>
+          <div class="div"></div>
+          <div class="opt premium"><span class="opt-label">Premium</span><span class="amt">$10</span></div>
+        </div>
+      </div>
+      <div class="price-row">
+        <div class="len"><span class="tag">REC</span>31–60 minutes</div>
+        <div class="amt-pair">
+          <div class="opt basic"><span class="opt-label">Basic</span><span class="amt">$13</span></div>
+          <div class="div"></div>
+          <div class="opt premium"><span class="opt-label">Premium</span><span class="amt">$15</span></div>
+        </div>
+      </div>
+      <div class="price-row">
+        <div class="len"><span class="tag">REC</span>61–90 minutes</div>
+        <div class="amt-pair">
+          <div class="opt basic"><span class="opt-label">Basic</span><span class="amt">$18</span></div>
+          <div class="div"></div>
+          <div class="opt premium"><span class="opt-label">Premium</span><span class="amt">$20</span></div>
+        </div>
+      </div>
+      <div class="price-row">
+        <div class="len"><span class="tag">REC</span>91–120 minutes</div>
+        <div class="amt-pair">
+          <div class="opt basic"><span class="opt-label">Basic</span><span class="amt">$22</span></div>
+          <div class="div"></div>
+          <div class="opt premium"><span class="opt-label">Premium</span><span class="amt">$25</span></div>
+        </div>
+      </div>
+      <div class="price-row">
+        <div class="len"><span class="tag">REC</span>121–180 minutes</div>
+        <div class="amt-pair">
+          <div class="opt basic"><span class="opt-label">Basic</span><span class="amt">$27</span></div>
+          <div class="div"></div>
+          <div class="opt premium"><span class="opt-label">Premium</span><span class="amt">$30</span></div>
+        </div>
+      </div>
     </div>
 
     <div class="subgrid">
@@ -694,7 +838,7 @@
           <li>Custom VHS label <span class="p">+$2</span></li>
           <li>Custom case cover artwork <span class="p">+$5</span></li>
           <li>Add intro/outro screen <span class="p">+$5</span></li>
-          <li>Multiple copies of the same VHS <span class="p">+$8 ea</span></li>
+          <li>Additional copy of same tape/video <span class="p">+$8</span></li>
         </ul>
       </div>
     </div>
