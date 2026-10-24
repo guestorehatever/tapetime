@@ -44,7 +44,7 @@
 <div class="eyebrow">Step 2 of 2</div>
 <h1>Submit a request</h1>
 <p class="lead">Tell us about your tapes and we’ll get back to you by phone or email.</p>
-<form class="panel" id="req" novalidate>
+<form class="panel" id="req" novalidate method="POST" action="https://formsubmit.co/giobecerra018@gmail.com">
   <input class="hp" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
   <label class="f">Name
     <input type="text" name="Name" autocomplete="name" required>
@@ -79,23 +79,15 @@
     var need=['Name','Content','Phone','Email'];
     for(var i=0;i<need.length;i++){ if(!String(d.get(need[i])||'').trim()){ msg.textContent='Please fill in: '+need[i]+'.'; return; } }
     if(!/^\S+@\S+\.\S+$/.test(d.get('Email'))){ msg.textContent='Please enter a valid email address.'; return; }
-    var body={
-      _subject:'TapeTime Digital — new request from '+d.get('Name'),
-      _template:'table', _captcha:'false',
-      Name:d.get('Name'), Content:d.get('Content'), Phone:d.get('Phone'),
-      Email:d.get('Email'), Extra:d.get('Extra')||'(none)',
-      'Agreed to disclaimer':'Yes — '+(function(){try{return sessionStorage.getItem('tt_agreed')||'';}catch(e){return '';}})()
-    };
+    function add(n,v){var i=document.createElement('input');i.type='hidden';i.name=n;i.value=v;form.appendChild(i);}
+    var when=''; try{ when=sessionStorage.getItem('tt_agreed')||''; }catch(e){}
+    add('_subject','TapeTime Digital — new request from '+d.get('Name'));
+    add('_template','table');
+    add('_captcha','false');
+    add('_next', new URL('thanks.html', location.href).href);
+    add('Agreed to disclaimer','Yes — '+when);
     btn.disabled=true; btn.textContent='SENDING…';
-    fetch('https://formsubmit.co/ajax/giobecerra018@gmail.com',{
-      method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'}, body:JSON.stringify(body)
-    }).then(function(r){return r.json();}).then(function(j){
-      if(j && (j.success===true||j.success==='true')){ location.href='thanks.html'; }
-      else { throw new Error((j&&j.message)||'failed'); }
-    }).catch(function(){
-      btn.disabled=false; btn.textContent='SEND REQUEST ▶';
-      msg.textContent='Something went wrong sending your request. Please try again in a moment.';
-    });
+    form.submit();
   });
 </script>
 </main>
